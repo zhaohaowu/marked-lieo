@@ -1,0 +1,14 @@
+<launch>
+
+    <rosparam file="$(find lio_sam)/config/params_sjc.yaml" command="load" />
+    
+    <node pkg="lio_sam" type="imuPreintegration2"   name="imuPreintegration2"    output="screen" 	respawn="true"/>
+    <node pkg="lio_sam" type="imageProjection2"     name="imageProjection2"      output="screen"     respawn="true"/>
+    <node pkg="lio_sam" type="featureExtraction2"   name="featureExtraction2"    output="screen"     respawn="true"/>
+    <node pkg="lio_sam" type="mapOptmization2"      name="mapOptmization2"       output="screen"     respawn="true"/>
+    
+    <!--- Run Rviz-->
+    <node pkg="rviz" type="rviz" name="rviz" args="-d $(find lio_sam)/rviz/rviz.rviz" />
+
+    <node pkg="lieo" type="odom2txt" name="odom2txt" output="screen" respawn="true"/>
+</launch>

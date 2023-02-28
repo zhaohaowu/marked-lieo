@@ -1,0 +1,16 @@
+<launch>
+
+    <rosparam file="$(find lieo)/config/params_gazebo.yaml" command="load" />
+    
+    <node pkg="lieo" type="imuPreintegration"   name="imuPreintegration"    output="screen" 	respawn="true"/>
+    <node pkg="lieo" type="imageProjection"     name="imageProjection"      output="screen"     respawn="true"/>
+    <node pkg="lieo" type="featureExtraction"   name="featureExtraction"    output="screen"     respawn="true"/>
+    <node pkg="lieo" type="mapOptmization"      name="mapOptmization"       output="screen"     respawn="true"/>
+    
+    <!--- Run Rviz-->
+    <node pkg="rviz" type="rviz" name="rviz" args="-d $(find lieo)/rviz/rviz.rviz" />
+
+    <node pkg="lieo" type="odom2txt" name="odom2txt" output="screen" respawn="true">
+        <remap from="/odom" to="/gazebo_odom"/>
+    </node>
+</launch>
